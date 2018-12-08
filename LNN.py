@@ -47,6 +47,7 @@ class LNN(object):
 
     #classify input 
     #param letters: the letters to be classified
+    #returns list with classification of inputs in the same order
     def classify(self,letters):
     	pred = slef.model.predict(letters)
     	output = []
