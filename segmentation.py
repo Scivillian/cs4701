@@ -4,7 +4,8 @@ import tensorflow as tf
 
 import matplotlib.pyplot as plt
 #%matplotlib inline # Only use this if using iPython
-image_index = 7778 # You may select anything up to 60,000
+#every index is a digit
+image_index = 7777 # You may select anything up to 60,000
 print(y_train[image_index]) # The label is 8
 plt.imshow(x_train[image_index], cmap='Greys')
 plt.show()
