@@ -49,7 +49,7 @@ def avg_darkness(training_data):
     darknesses = defaultdict(float)
     for image, char in zip(training_data[0], training_data[1]):
         char_counts[char] += 1
-        darkness[char] += sum(image)
+        darknesses[char] += sum(image)
     avgs = defaultdict(float)
     for char, n in char_counts.iteritems():
         avgs[char] = darknesses[char] / n
