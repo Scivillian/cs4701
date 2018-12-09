@@ -62,7 +62,7 @@ corresponding average darknesses across the training data.
 """
 def guess_char(image, avgs):
     darkness = sum(image)
-    distances = {k: abs(v-darkness) for k, v in avs.iteritems()}
+    distances = {k: abs(v-darkness) for k, v in avgs.iteritems()}
     return min(distances, key=distances.get)
 
 if __name__ == "__main__":
