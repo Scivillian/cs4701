@@ -18,9 +18,13 @@ https://github.com/mnielsen/neural-networks-and-deep-learning/blob/master/src/mn
 
 from collections import defaultdict
 
+import tensorflow as tf
+
+
 
 def main():
     # load data here, however we're loading data
+    training_data, test_data = tf.keras.datasets.mnist.load_data()
 
     # use training data to compute averages
     avgs = avg_darkness(training_data)
@@ -29,8 +33,8 @@ def main():
     num_correct = sum(int(guess_char(image, avgs) == char)\
                     for image, char in zip(test_data[0], test_data[1]))
 
-    print "Baseline classifier using average darkness of image."
-    print "%s of %s values correct." % (num_correct, len(test_data[1]))
+    print ("Baseline classifier using average darkness of image.")
+    print ("%s of %s values correct." % (num_correct, len(test_data[1])))
 
 """ Returns a dictionary whose keys are digits 0 through 61
 representing digits 0 through 9 then uppercase and lowercase 
@@ -58,7 +62,7 @@ corresponding average darknesses across the training data.
 """
 def guess_char(image, avgs):
     darkness = sum(image)
-    distances = {k: abs(v-darkness) for k, v in avs.iteritems()}
+    distances = {k: abs(v-darkness) for k, v in avgs.iteritems()}
     return min(distances, key=distances.get)
 
 if __name__ == "__main__":
