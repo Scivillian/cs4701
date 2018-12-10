@@ -28,6 +28,7 @@ def main():
 
     # use training data to compute averages
     avgs = avg_darkness(training_data)
+    #print(avgs)
 
     # classify test images
     num_correct = sum(int(guess_char(image, avgs) == char)\
@@ -47,12 +48,13 @@ of the darknesses for each pixel in the image.
 def avg_darkness(training_data):
     char_counts = defaultdict(int)
     darknesses = defaultdict(float)
+    printed = False
     for image, char in zip(training_data[0], training_data[1]):
         char_counts[char] += 1
-        darknesses[char] += sum(image)
+        darknesses[char] = darknesses[char] + sum(sum(image))
     avgs = defaultdict(float)
     for char, n in char_counts.items():
-        avgs[char] = darknesses[char] / n
+        avgs[char] = (darknesses[char]) / n
     return avgs
 
 """ Returns the character whose average darkness in the training data
@@ -61,10 +63,10 @@ a defaultdict whose keys are 0...61 and whose values are the
 corresponding average darknesses across the training data.
 """
 def guess_char(image, avgs):
-    darkness = sum(image)
+    darkness = sum(sum(image))
     distances = {k: abs(v-darkness) for k, v in avgs.items()}
     min_val = min(distances.values())
-    result = [key for key, value in distances.items() if value == min_value]
+    result = [key for key, value in distances.items() if value == min_val]
     return result
 
 if __name__ == "__main__":
