@@ -34,7 +34,7 @@ def main():
                     for image, char in zip(test_data[0], test_data[1]))
 
     print ("Baseline classifier using average darkness of image.")
-    print ("%s of %s values correct." % (num_correct, len(test_data[1])))
+    print ("{0} of {1} values correct.".format(num_correct, len(test_data[1])))
 
 """ Returns a dictionary whose keys are digits 0 through 61
 representing digits 0 through 9 then uppercase and lowercase 
@@ -51,7 +51,7 @@ def avg_darkness(training_data):
         char_counts[char] += 1
         darknesses[char] += sum(image)
     avgs = defaultdict(float)
-    for char, n in char_counts.iteritems():
+    for char, n in char_counts.items():
         avgs[char] = darknesses[char] / n
     return avgs
 
@@ -62,8 +62,10 @@ corresponding average darknesses across the training data.
 """
 def guess_char(image, avgs):
     darkness = sum(image)
-    distances = {k: abs(v-darkness) for k, v in avgs.iteritems()}
-    return min(distances, key=distances.get)
+    distances = {k: abs(v-darkness) for k, v in avgs.items()}
+    min_val = min(distances.values())
+    result = [key for key, value in distances.items() if value == min_value]
+    return result
 
 if __name__ == "__main__":
     main()
