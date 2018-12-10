@@ -1,5 +1,5 @@
 import numpy as np
-import cPickle
+import _pickle as cPickle
 import gzip
 from PIL import Image
 

@@ -20,10 +20,13 @@ from collections import defaultdict
 
 import tensorflow as tf
 
+import data_process
+
 
 
 def main():
     # load data here, however we're loading data
+    #training_data, validation_data, test_data = data_process.load_data_wrapper()
     training_data, test_data = tf.keras.datasets.mnist.load_data()
 
     # use training data to compute averages
