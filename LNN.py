@@ -5,7 +5,7 @@ from tensorflow import keras
 import numpy as np
 #import matplotlib.pyplot as plt
 
-def main():
+#def main():
 	#training_data, test_data = tf.keras.datasets.mnist.load_data()
 
 	#network = LNN(training_data[1]) # training data character labels
@@ -26,13 +26,12 @@ class LNN(object):
     #param fA (string): acitivation function of the output layer
     #param opt (string): the optimization function
     #param lossF (string):the loss function
-    def __init__(self,cNames, dimX=28, dimY=28, l1S=128, l2S=128, l1A='sigmoid' ,l2A='sigmoid',fA='sigmoid', opt=tf.train.GradientDescentOptimizer, lossF='sparse_categorical_crossentropy'):
+    def __init__(self,cNames, dimX=28, dimY=28, l1S=128, l2S=128, l1A=tf.nn.sigmoid ,l2A='sigmoid',fA=tf.nn.sigmoid, opt=tf.train.AdamOptimizer(), lossF='sparse_categorical_crossentropy'):
         
         self.labels = cNames
         self.model = keras.Sequential([
             keras.layers.Flatten(input_shape=(dimX, dimY)),
             keras.layers.Dense(l1S, activation=l1A),
-            keras.layers.Dense(l2S, activation=l2A),
             keras.layers.Dense(len(cNames), activation=fA)
         ])
         self.model.compile(optimizer=opt, 
@@ -47,7 +46,7 @@ class LNN(object):
     #param batch_size: how to split up input data
     def train(self, trainImages, trainLabels, epochs=5,batch_size=32):
         print("Training Letter Neural Net")
-        self.model.fit(trainImages,trainLabels,epochs=epochs, batch_size=batch_size)
+        self.model.fit(trainImages,trainLabels,epochs=epochs)
         print("done")
 
 
@@ -55,8 +54,8 @@ class LNN(object):
     #param letters: the letters to be classified
     #returns string with classification of inputs in the same order
     def classify(self,letters):
-        pred = slef.model.predict(letters)
+        pred = self.model.predict(letters)
         output = ""
         for p in pred:
-            output+= (self.labels.get(np.argmax(p)))
+            output+= (self.labels[np.argmax(p)])
         return output
