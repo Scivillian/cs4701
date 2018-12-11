@@ -26,7 +26,7 @@ class LNN(object):
     #param fA (string): acitivation function of the output layer
     #param opt (string): the optimization function
     #param lossF (string):the loss function
-    def __init__(self,cNames, dimX=28, dimY=28, l1S=128, l2S=128, l1A=tf.nn.sigmoid ,l2A='sigmoid',fA=tf.nn.sigmoid, opt=tf.train.AdamOptimizer(), lossF='sparse_categorical_crossentropy'):
+    def __init__(self,cNames, dimX=28, dimY=28, l1S=300, l2S=128, l1A=tf.nn.sigmoid ,l2A='sigmoid',fA=tf.nn.sigmoid, opt=tf.train.AdamOptimizer(), lossF='sparse_categorical_crossentropy'):
         
         self.labels = cNames
         self.model = keras.Sequential([
