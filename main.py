@@ -40,7 +40,7 @@ def main():
 
 #running the model on a ton of test examples and graphing and such
 def diag(model):
-	training_data, test_data = data_processor.load_datasets()
+	training_data, test_data = data_processor.load_datasets(0)
 	if (model == 0): 
 		# run LNN
 		labels = list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
@@ -61,7 +61,7 @@ def diag(model):
 #input handwriting to be converted output text
 def norm(model):
 	#get training data from neel
-	training_data, test_data = data_processor.load_datasets()
+	training_data, test_data = data_processor.load_datasets(0)
 
 	#labels
 	labels = list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")

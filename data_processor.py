@@ -14,22 +14,28 @@ import matplotlib.pyplot as plt
 
 
 """Loads in the MNIST training and testing datasets and returns them"""
-def load_datasets():
-    x1, y1 = loadlocal_mnist(
-        images_path='data/emnist-byclass-train-images-idx3-ubyte',
-        labels_path='data/emnist-byclass-train-labels-idx1-ubyte')
-    x2, y2 = loadlocal_mnist(
-        images_path='data/emnist-byclass-test-images-idx3-ubyte',
-        labels_path='data/emnist-byclass-test-labels-idx1-ubyte')
-    
-    training_data = [x1, y1[:60000]]
-    test_data = [x2, y2[:60000]]
-
+def load_datasets(mode):
+    training_data = []
+    test_data = []
+    if(mode == 1):
+        x1, y1 = loadlocal_mnist(
+            images_path='data/emnist-byclass-train-images-idx3-ubyte',
+            labels_path='data/emnist-byclass-train-labels-idx1-ubyte')
+        x2, y2 = loadlocal_mnist(
+            images_path='data/emnist-byclass-test-images-idx3-ubyte',
+            labels_path='data/emnist-byclass-test-labels-idx1-ubyte')
+        
+        training_data = [x1, y1]#[:60000]]
+        test_data = [x2, y2]#[:60000]]
+    else:
+        trd, ted = tf.keras.datasets.mnist.load_data()
+        training_data = list(trd)
+        test_data = list(ted)
     # un-flatten the image data into an array of 28x28 image pixel values
     #training_data[0] = np.reshape(training_data[0],(len(training_data[0]),28,28))
     #test_data[0] = np.reshape(test_data[0], (len(test_data[0]), 28, 28))
-    x = training_data[0][:60000]
-    y = test_data[0][:60000]
+    x = training_data[0]#[:60000]
+    y = test_data[0]#[:60000]
 
     training_data[0] = np.reshape(x,(len(x),28,28))
     test_data[0] = np.reshape(y, (len(y), 28, 28))
@@ -41,7 +47,7 @@ def load_datasets():
 grayscale values """
 def load_image(infilename) :
     img = Image.open(infilename)
-    img = img.resize((280, 280), Image.ANTIALIAS)
+    img = img.resize((500, 500), Image.ANTIALIAS)
     img.load()
     data = np.asarray( img, dtype="int32" )
 
