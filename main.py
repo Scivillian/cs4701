@@ -3,6 +3,7 @@ import sys
 import data_processor
 import base_case_classifier
 import LNN
+import numpy as np
 
 
 def main():
@@ -63,7 +64,7 @@ def norm(model):
 	training_data, test_data = data_processor.load_datasets()
 
 	#labels
-	labels = list("0123456789abcdefghijklmnopqrstuvwxyz")
+	labels = list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
 	#create and train bills seperation model
 	#create and train toms letter classification model
 	if (model == 0):
@@ -73,22 +74,13 @@ def norm(model):
 	while(1):
 		file = input("hadwriten file to be converted: \n")
 		image = data_processor.load_image(file)
-		characters = data_processor.segment(image)
+		characters = np.array(data_processor.segment(image))
 
 		#check which model to use
 		#learned model
 		if(model == 0):
 			output = ""
-			numchars = 0
-			for w in characters:
-				output += string(classifier.classify(w))
-				#count words to know when to go to new
-				numchars += 1
-				if(numchars == 10):
-					numchars = 0
-					output += "\n"
-				else:
-					output += " "
+			output = str(classifier.classify(characters))
 			print (output)
 		#basecase model
 		else:	
@@ -96,14 +88,14 @@ def norm(model):
 			output = ""
 			numchars = 0
 			for img in characters:
-				output += base_case_classifier.guess_char(img, avgs)
+				output += labels[(base_case_classifier.guess_char(img, avgs))[0]]
 				numchars += 1
 				if (numchars == 10):
 					numchars = 0
 					output += "\n"
 				else:
 					output += " "
-
+			print(output)
 		
 
 			

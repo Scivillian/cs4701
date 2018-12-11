@@ -62,7 +62,7 @@ def segment(x):
     #x = dp.load_image('hand1.jpg')
     plt.imshow(x, cmap='Greys')
     plt.show()
-    print(x)
+    #print(x)
 # firstBlack = False
     for i,row in enumerate(x):
         for j,val in enumerate(row) :
@@ -89,7 +89,7 @@ def segment(x):
             else: 
                 j+=1
 
-        print('found black : {}'.format(j))
+        #print('found black : {}'.format(j))
         # for i,row in enumerate(x):
         #     for j,val in enumerate(row) :
         #         if not (firstBlack):
@@ -122,7 +122,7 @@ def segment(x):
             filter_blurred_f = scipy.ndimage.gaussian_filter(blurred_f, 1)
             alpha = 30
             sharpened = blurred_f + alpha * (blurred_f - filter_blurred_f)
-            print('height : {}, width: {}'.format(len(y), len(y[0])))
+            #print('height : {}, width: {}'.format(len(y), len(y[0])))
             images.append(y)
             
         
@@ -136,17 +136,17 @@ def segment(x):
 def chopRows(y):
     lowestRow = len(y)
     highestRow = 0
-    print(lowestRow)
+    #print(lowestRow)
     for i,row in enumerate(y):
         for j,val in enumerate(row) :       
             if(255 == y[i][j]):
-                print(i)
+                #print(i)
                 if(i < lowestRow ):
                     lowestRow = i
                 if(i > highestRow):
                     #print('yes')
                     highestRow = i
-    print('lowestRow : {}, highestRow: {}'.format(lowestRow, highestRow))
+    #print('lowestRow : {}, highestRow: {}'.format(lowestRow, highestRow))
     y = y[lowestRow-1:highestRow+2, :]
 
     height = len(y) 
