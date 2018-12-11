@@ -58,4 +58,4 @@ class LNN(object):
         output = ""
         for p in pred:
             output+= (self.labels[np.argmax(p)])
-        return output
+        return list(output)
