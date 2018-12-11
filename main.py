@@ -1,6 +1,6 @@
 #import statements from all our combined parts
 import sys
-import data_process
+import data_processor
 import base_case_classifier
 import LNN
 
@@ -39,12 +39,20 @@ def main():
 
 #running the model on a ton of test examples and graphing and such
 def diag(model):
-	training_data, test_data = data_process.load_data()
+	training_data, test_data = data_processor.load_datasets()
 	if (model == 0): 
 		# run LNN
-		print("LNN output")
-	# use base case classifier
+		labels = list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+		classifier = LNN.LNN(labels)
+		classifier.train(training_data[0], training_data[1])
+		output = classifier.classify(test_data[0])
+		#print(output[:10])
+		#print(test_data[1][:10])
+		num_correct = sum(int(output[i] == labels[test_data[1][i]]) for i in range(len(output)))
+		print ("Neural network classifier")
+		print ("{0} of {1} values correct.".format(num_correct, len(test_data[1])))
 	else:
+		# use base case classifier
 		base_case_classifier.classify_dataset(training_data, test_data)
 
 
@@ -52,21 +60,20 @@ def diag(model):
 #input handwriting to be converted output text
 def norm(model):
 	#get training data from neel
-	training_data, test_data = data_process.load_data()
+	training_data, test_data = data_processor.load_datasets()
 
 	#labels
 	labels = list("0123456789abcdefghijklmnopqrstuvwxyz")
 	#create and train bills seperation model
 	#create and train toms letter classification model
-	classifier = LNN(labels)
-	classifier.train(trainingPictures,trainingLabels)
+	if (model == 0):
+		classifier = LNN.LNN(labels)
+		classifier.train(training_data[0],training_data[1])
 	#take input files and output
 	while(1):
-		file = input("hadwriten file to be converted")
-		#neel does something with this file to create input image
-		#bill seperates and puts in 2d array
-		image = data_process.load_image(file)
-		characters = data_process.segment(image)
+		file = input("hadwriten file to be converted: \n")
+		image = data_processor.load_image(file)
+		characters = data_processor.segment(image)
 
 		#check which model to use
 		#learned model
@@ -74,7 +81,7 @@ def norm(model):
 			output = ""
 			numchars = 0
 			for w in characters:
-				output += classifier.classify(w)
+				output += string(classifier.classify(w))
 				#count words to know when to go to new
 				numchars += 1
 				if(numchars == 10):
@@ -82,7 +89,7 @@ def norm(model):
 					output += "\n"
 				else:
 					output += " "
-			print output
+			print (output)
 		#basecase model
 		else:	
 			avgs = base_case_classifier.avg_darkness(training_data)
