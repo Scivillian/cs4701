@@ -9,6 +9,7 @@ def main():
 		if(sys.argv[1] == '-h'):
 			print("CS4701 final project")
 			print("main.py [-h | -b | -l][-d | -n]")
+			print("example: main.py -l -n")
 			print("-h : help menu")
 			print("-b : use base case")
 			print("-l : use learned model")
@@ -64,7 +65,7 @@ def norm(model):
 			numWords = 0
 			for w in characters:
 				output += classifier.classify(w)
-				#count words to know when to go to new line
+				#count words to know when to go to new
 				numWords += 1
 				if(numWords == 10):
 					numWords = 0

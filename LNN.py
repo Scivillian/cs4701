@@ -47,10 +47,10 @@ class LNN(object):
 
     #classify input 
     #param letters: the letters to be classified
-    #returns list with classification of inputs in the same order
+    #returns string with classification of inputs in the same order
     def classify(self,letters):
     	pred = slef.model.predict(letters)
-    	output = []
+    	output = ""
     	for p in pred
-    		output.append(self.labels.get(np.argmax(p)))
+    		output+= (self.labels.get(np.argmax(p)))
     	return output
