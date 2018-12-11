@@ -3,11 +3,17 @@ import tensorflow as tf
 from tensorflow import keras
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+
+def main():
+	#training_data, test_data = tf.keras.datasets.mnist.load_data()
+
+	#network = LNN(training_data[1]) # training data character labels
+	#network.train(training_data[0], training_data[1])
+
 
 
 #Letter Neural Net
-
 class LNN(object):
     #CONSTRUCTOR
     #param cNames: the list of lables ex. index 0 => '0', index 10 => 'A'
@@ -51,6 +57,6 @@ class LNN(object):
     def classify(self,letters):
         pred = slef.model.predict(letters)
         output = ""
-        for p in pred
+        for p in pred:
             output+= (self.labels.get(np.argmax(p)))
         return output
