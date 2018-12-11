@@ -23,7 +23,9 @@ import tensorflow as tf
 import data_process
 
 
-
+""" Establishes a dictionary of average pixel darknesses from the
+MNIST digits training dataset, classifies the MNIST digits test dataset based 
+on these averages, and outputs how many were correctly identified. """
 def main():
     # load data here, however we're loading data
     #training_data, validation_data, test_data = data_process.load_data_wrapper()
@@ -39,6 +41,16 @@ def main():
 
     print ("Baseline classifier using average darkness of image.")
     print ("{0} of {1} values correct.".format(num_correct, len(test_data[1])))
+
+
+""" Does the same as main, but allows for different datasets to be passed in"""
+def classify_dataset(training_data, test_data):
+    avgs = avg_darkness(training_data)
+    num_correct = sum(int(guess_char(image, avgs) == char)\
+                    for image, char in zip(test_data[0], test_data[1]))
+    print ("Baseline classifier using average darkness of image.")
+    print ("{0} of {1} values correct.".format(num_correct, len(test_data[1])))    
+
 
 """ Returns a dictionary whose keys are digits 0 through 61
 representing digits 0 through 9 then uppercase and lowercase 

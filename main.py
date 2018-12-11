@@ -39,20 +39,20 @@ def main():
 
 #running the model on a ton of test examples and graphing and such
 def diag(model):
+	training_data, test_data = data_process.load_data()
 	if (model == 0): 
 		# run LNN
 		print("LNN output")
 	# use base case classifier
 	else:
-		base_case_classifier.main()
+		base_case_classifier.classify_dataset(training_data, test_data)
 
 
 
 #input handwriting to be converted output text
 def norm(model):
 	#get training data from neel
-	trainingPictures
-	trainingLabels
+	training_data, test_data = data_process.load_data()
 
 	#labels
 	labels = list("0123456789abcdefghijklmnopqrstuvwxyz")
@@ -65,26 +65,40 @@ def norm(model):
 		file = input("hadwriten file to be converted")
 		#neel does something with this file to create input image
 		#bill seperates and puts in 2d array
-		characters = #bills stuff
+		image = data_process.load_image(file)
+		characters = data_process.segment(image)
 
 		#check which model to use
 		#learned model
 		if(model == 0):
 			output = ""
-			numWords = 0
+			numchars = 0
 			for w in characters:
 				output += classifier.classify(w)
 				#count words to know when to go to new
-				numWords += 1
-				if(numWords == 10):
-					numWords = 0
+				numchars += 1
+				if(numchars == 10):
+					numchars = 0
 					output += "\n"
 				else:
 					output += " "
 			print output
 		#basecase model
 		else:	
-			#use KTs base case and output
+			avgs = base_case_classifier.avg_darkness(training_data)
+			output = ""
+			numchars = 0
+			for img in characters:
+				output += base_case_classifier.guess_char(img, avgs)
+				numchars += 1
+				if (numchars == 10):
+					numchars = 0
+					output += "\n"
+				else:
+					output += " "
+
+		
+
 			
 
 
