@@ -1,5 +1,6 @@
 #import statements from all our combined parts
 import sys
+import data_process
 import base_case_classifier
 import LNN
 
@@ -43,11 +44,10 @@ def diag(model):
 		print("LNN output")
 	# use base case classifier
 	else:
-		base_case_classifier.__main__
+		base_case_classifier.main()
 
 
 
-"""
 #input handwriting to be converted output text
 def norm(model):
 	#get training data from neel
@@ -85,7 +85,7 @@ def norm(model):
 		#basecase model
 		else:	
 			#use KTs base case and output
-			"""
+			
 
 
 if __name__ == '__main__':
