@@ -22,8 +22,8 @@ class LNN(object):
 	#param lossF (string):the loss function
 	def __init__(self,cNames, dimX=28, dimY=28, l1S=128, l2S=128, l1A='sigmoid' ,l2A='sigmoid',fA='sigmoid', opt=tf.train.GradientDescentOptimizer, lossF='sparse_categorical_crossentropy'):
         
-        self.labels = cNames
-        self.model = keras.Sequential([
+		self.labels = cNames
+		self.model = keras.Sequential([
     		keras.layers.Flatten(input_shape=(dimX, dimY)),
     		keras.layers.Dense(l1S, activation=l1A),
     		keras.layers.Dense(l2S, activation=l2A),
