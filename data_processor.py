@@ -65,18 +65,11 @@ def load_image(infilename) :
 segments the image into characters, and returns a list of image arrays of
 each character"""
 def segment(x):
-    #x = dp.load_image('hand1.jpg')
     plt.imshow(x, cmap='Greys')
     plt.show()
-    #print(x)
-# firstBlack = False
     for i,row in enumerate(x):
         for j,val in enumerate(row) :
             if val > 160.0:
-                #print(val)
-                #if not (firstBlack):
-                #print('row: {}, col: {}'.format(i, j))
-                #firstBlack = True
                 x[i][j] = 255
             else:
                 x[i][j] = 0
@@ -95,19 +88,6 @@ def segment(x):
             else: 
                 j+=1
 
-        #print('found black : {}'.format(j))
-        # for i,row in enumerate(x):
-        #     for j,val in enumerate(row) :
-        #         if not (firstBlack):
-        #             if val == 255:
-        #                 black = (i, j)
-        #                 firstBlack = True
-        #         # else:
-        #         #     if val == 0:
-        #         #         white = (i, j)
-        #         #         x = [i:]
-        
-        #find white space starting from column index of first black, without touching the columns
         left = j
         blackExists = True
         #j = black[1]
@@ -128,17 +108,11 @@ def segment(x):
             filter_blurred_f = scipy.ndimage.gaussian_filter(blurred_f, 1)
             alpha = 30
             sharpened = blurred_f + alpha * (blurred_f - filter_blurred_f)
-            #print('height : {}, width: {}'.format(len(y), len(y[0])))
             images.append(y)
             
-        
-    # for im in images:
-    #     plt.imshow(im, cmap='Greys')
-    #     plt.show()
-
     return images
 
-"""chops Rows and pads"""
+"""chops Rows and pads with white pixels so that dimensions are equal"""
 def chopRows(y):
     lowestRow = len(y)
     highestRow = 0
@@ -152,7 +126,6 @@ def chopRows(y):
                 if(i > highestRow):
                     #print('yes')
                     highestRow = i
-    #print('lowestRow : {}, highestRow: {}'.format(lowestRow, highestRow))
     y = y[lowestRow-1:highestRow+2, :]
 
     height = len(y) 
